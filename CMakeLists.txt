@@ -28,6 +28,15 @@ set(PICO_BOARD pico2 CACHE STRING "Board type")
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
+# Download FreeRTOS
+include(FetchContent)
+FetchContent_Declare(freertos_kernel
+  GIT_REPOSITORY https://github.com/raspberrypi/FreeRTOS-Kernel.git
+  GIT_TAG main
+  SOURCE_SUBDIR portable/ThirdParty/GCC/RP2350_ARM_NTZ
+)
+FetchContent_MakeAvailable(freertos_kernel)
+
 project(i2c_scan_freertos_pico2_m33 C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
@@ -46,6 +55,7 @@ pico_enable_stdio_usb(i2c_scan_freertos_pico2_m33 0)
 
 # Add the standard library to the build
 target_link_libraries(i2c_scan_freertos_pico2_m33
+    FreeRTOS-Kernel-Heap4
         pico_stdlib)
 
 # Add the standard include files to the build
@@ -54,4 +64,3 @@ target_include_directories(i2c_scan_freertos_pico2_m33 PRIVATE
 )
 
 pico_add_extra_outputs(i2c_scan_freertos_pico2_m33)
-
