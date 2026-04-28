@@ -163,8 +163,9 @@ to exclude the API function. */
 #if configGENERATE_RUN_TIME_STATS == 1
 #if configUSE_M33_DWT_CYC_COUNTER == 1
 #include "m33_dwt_cyc.h"
+#define configRUN_TIME_COUNTER_TYPE                 uint64_t
 #define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS()    m33_dwt_cyc_ena()
-#define portGET_RUN_TIME_COUNTER_VALUE()            m33_dwt_cyc_cnt()
+#define portGET_RUN_TIME_COUNTER_VALUE()            m33_dwt_cyc_cnt64()
 #else
 #define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS()    do { } while(0)
 #define portGET_RUN_TIME_COUNTER_VALUE()            ( xTaskGetTickCount() )
