@@ -38,7 +38,7 @@ This example demonstrates how to use the Data Watchpoint and Trace (DWT) unit on
 
 Each core has its own DWT unit, allowing for independent measurement of task execution times on each core. The example shows how to configure the DWT to start and stop the cycle counter around task execution, and how to read the counter value to calculate the run time of tasks. This information can be used to identify performance bottlenecks and optimise task scheduling in FreeRTOS.
 
-Does the second core enable the DWT unit by FreeRTOS when the scheduler starts? Yes, the DWT unit is enabled by default on both cores of the Raspberry Pi Pico.
+Does FreeRTOS automatically enable the DWT unit on the second core when the scheduler starts? In this example, the project does not rely on DWT being enabled by default. Instead, the run time statistics configuration explicitly enables the DWT cycle counter on each core via `PICO_RUNTIME_INIT_FUNC_PER_CORE()` (which calls `m33_dwt_cyc_ena()`), so readers should treat DWT enablement as an explicit setup step for this example.
 
 ## FreeRTOS Build-Time Integration
 
