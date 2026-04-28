@@ -14,8 +14,8 @@
 
 #include <stdatomic.h>
 
-static atomic_uint_fast32_t cnt32[2] = {0UL, 0UL};
-static atomic_uint_fast64_t cnt64[2] = {0ULL, 0ULL};
+static atomic_uint_fast32_t cnt32[NUM_CORES] = {0UL, 0UL};
+static atomic_uint_fast64_t cnt64[NUM_CORES] = {0ULL, 0ULL};
 
 void m33_dwt_cyc_ena(void) {
   /*
