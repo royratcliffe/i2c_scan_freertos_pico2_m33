@@ -32,7 +32,7 @@ include(pico_sdk_import.cmake)
 include(FetchContent)
 FetchContent_Declare(freertos_kernel
   GIT_REPOSITORY https://github.com/raspberrypi/FreeRTOS-Kernel.git
-  GIT_TAG main
+  GIT_TAG main # or specify a specific tag or commit
   SOURCE_SUBDIR portable/ThirdParty/GCC/RP2350_ARM_NTZ
 )
 FetchContent_MakeAvailable(freertos_kernel)
