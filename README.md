@@ -16,6 +16,9 @@ I2C1 Bus Scan
 70 .  .  .  .__.__.__.__.  .  .  .__.__.__.__.  .
 ```
 
+It looks a little bit chaotic. In fact, it almost looks like there are two separate tasks running the same scan function, one on each core. But there is only one task; it is just being scheduled on both cores by the FreeRTOS scheduler.
+This is a key aspect of FreeRTOS's multi-core scheduling capabilities, allowing tasks to run on any available core without being pinned to a specific one, which can help with load balancing and improving overall system performance.
+
 ## Overview
 This example demonstrates how to implement a multicore Symmetric Multiprocessing (SMP) configuration using FreeRTOS on the Raspberry Pi Pico, which is based on the dual-core Cortex-M33 microcontroller. The example focuses on performing I^2^C scanning across multiple devices while leveraging the capabilities of both cores to enhance performance and efficiency. The example also showcases the use of the Data Watchpoint and Trace (DWT) unit for gathering run time statistics, and it integrates FreeRTOS into the build process using CMake's FetchContent module. Additionally, the example utilises the Heap-4 memory management scheme provided by FreeRTOS to manage dynamic memory allocation effectively.
 
