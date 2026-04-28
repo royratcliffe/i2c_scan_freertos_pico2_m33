@@ -1,5 +1,21 @@
 # Multicore SMP I^2^C Scanning Example for FreeRTOS on Raspberry Pi Pico (Cortex-M33)
 
+TL;DR? Run FreeRTOS on both cores of the Raspberry Pi Pico to perform efficient I^2^C scanning, gather run time statistics using DWT, and manage memory with Heap-4.
+The example code adds a visual indicator to the output of the I^2^C scan to show which core is executing the task. If the current core is core 0, it prints two spaces; if it's core 1, it prints two underscores. This allows the Serial Monitor to see which core is running the task at any given time, especially when the output is interleaved with other tasks that may be running on different cores.
+
+``` text
+I2C1 Bus Scan
+   0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F
+00 .  .  .  .  .__.__.__.  .  .  .  .__.__.__.  .
+10 .__.__.__.__.  .  .  .__.__.__.  .  .  .__.__.
+20 .  .  .  .__.__.__.  .  .  .  .__.__.__.  .  .
+30 .__.__.__.  .  .  .__.__.__.  .  .  .__.__.__.
+40 .  .  .__.__.__.  .  .  .  .__.__.__.  .  .  .
+50 .__.  .  .  .  .__.__.__.  .  .  .__@__.__.  .
+60 .  .__.__.__.  .  .  .__@__.__.__.  .  .  .__.
+70 .  .  .  .__.__.__.__.  .  .  .__.__.__.__.  .
+```
+
 ## Overview
 This example demonstrates how to implement a multicore Symmetric Multiprocessing (SMP) configuration using FreeRTOS on the Raspberry Pi Pico, which is based on the dual-core Cortex-M33 microcontroller. The example focuses on performing I^2^C scanning across multiple devices while leveraging the capabilities of both cores to enhance performance and efficiency. The example also showcases the use of the Data Watchpoint and Trace (DWT) unit for gathering run time statistics, and it integrates FreeRTOS into the build process using CMake's FetchContent module. Additionally, the example utilises the Heap-4 memory management scheme provided by FreeRTOS to manage dynamic memory allocation effectively.
 
