@@ -22,6 +22,12 @@ static void prvI2CScannerTask(void *pvParameters) {
 int main() {
   stdio_init_all();
 
+  /*
+   * Initialise I2C1 with a baud rate of 400 kHz and configure the GPIO
+   * pins. Launch a FreeRTOS task to perform the I2C scanning. The task
+   * will run indefinitely, scanning the I2C bus every second and
+   * printing the results.
+   */
   i2c_init(i2c1, 400 * 1000);
   gpio_set_function(I2C1_SDA, GPIO_FUNC_I2C);
   gpio_set_function(I2C1_SCL, GPIO_FUNC_I2C);
