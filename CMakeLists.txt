@@ -44,7 +44,8 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(i2c_scan_freertos_pico2_m33 main.c )
+add_executable(i2c_scan_freertos_pico2_m33 main.c
+    m33_dwt_cyc.c)
 
 pico_set_program_name(i2c_scan_freertos_pico2_m33 "i2c_scan_freertos_pico2_m33")
 pico_set_program_version(i2c_scan_freertos_pico2_m33 "0.1")
