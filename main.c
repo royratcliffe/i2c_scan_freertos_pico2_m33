@@ -1,11 +1,34 @@
+#include "hardware/gpio.h"
+#include "hardware/i2c.h"
 #include "pico/stdlib.h"
 #include <stdio.h>
 
 #include "FreeRTOS.h"
 #include "task.h"
 
+#include "i2c_scan.h"
+
+#define I2C1_SDA 6
+#define I2C1_SCL 7
+
+static void prvI2CScannerTask(void *pvParameters) {
+  i2c_inst_t *i2c = (i2c_inst_t *)pvParameters;
+  for (;;) {
+    i2c_scan(i2c);
+    vTaskDelay(pdMS_TO_TICKS(1000));
+  }
+}
+
 int main() {
   stdio_init_all();
+
+  i2c_init(i2c1, 400 * 1000);
+  gpio_set_function(I2C1_SDA, GPIO_FUNC_I2C);
+  gpio_set_function(I2C1_SCL, GPIO_FUNC_I2C);
+  gpio_pull_up(I2C1_SDA);
+  gpio_pull_up(I2C1_SCL);
+  BaseType_t xResult = xTaskCreate(prvI2CScannerTask, "scanI2C1", configMINIMAL_STACK_SIZE, (void *)i2c1, tskIDLE_PRIORITY, NULL);
+  configASSERT(xResult != pdFAIL);
 
   /*
    * Start the FreeRTOS scheduler. This will start the atomic work task
