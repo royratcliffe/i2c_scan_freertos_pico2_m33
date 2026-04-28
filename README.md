@@ -34,6 +34,10 @@ This example is configured to run in Symmetric Multiprocessing (SMP) mode on the
 ## DWT
 This example demonstrates how to use the Data Watchpoint and Trace (DWT) unit on the Cortex-M33 to gather run time statistics for tasks in FreeRTOS. The DWT provides a high-resolution cycle counter used to measure the execution time of tasks, which is essential for performance analysis and optimisation in real-time applications.
 
+Each core has its own DWT unit, allowing for independent measurement of task execution times on each core. The example shows how to configure the DWT to start and stop the cycle counter around task execution, and how to read the counter value to calculate the run time of tasks. This information can be used to identify performance bottlenecks and optimise task scheduling in FreeRTOS.
+
+Does the second core enable the DWT unit by FreeRTOS when the scheduler starts? Yes, the DWT unit is enabled by default on both cores of the Raspberry Pi Pico.
+
 ## FreeRTOS Build-Time Integration
 The example utilises CMake's FetchContent module to integrate FreeRTOS into the build process. The FetchContent approach simplifies dependency management compared to using a Git submodule. The CMake configuration is set up to fetch the FreeRTOS source code from its official repository, ensuring that a specific tagged version or commit hash is used. This method also allows for easy updates to FreeRTOS without needing to manually manage submodules, making it a more efficient and streamlined approach for incorporating FreeRTOS into a project.
 
