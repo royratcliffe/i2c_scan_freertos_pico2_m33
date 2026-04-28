@@ -37,13 +37,10 @@ int main() {
   configASSERT(xResult != pdFAIL);
 
   /*
-   * Start the FreeRTOS scheduler. This will start the atomic work task
-   * and allow it to run the scheduled work function. The main function
-   * will not continue past this point, as the scheduler will take over
-   * and run the tasks. In a real application, you might want to add
-   * additional tasks or functionality before starting the scheduler.
-   * For this example, we simply start the scheduler after scheduling
-   * the work function.
+   * Start the FreeRTOS scheduler. This hands control to the scheduler,
+   * which will begin running the tasks created above, including the
+   * I2C scanner task. The main function should not continue past this
+   * point unless the scheduler fails to start.
    */
   vTaskStartScheduler();
 
