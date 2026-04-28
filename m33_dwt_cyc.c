@@ -11,11 +11,14 @@
 
 #include "hardware/structs/m33.h"
 #include "pico/multicore.h"
+#include "pico/runtime.h"
 
 #include <stdatomic.h>
 
 static atomic_uint_fast32_t cnt32[NUM_CORES] = {0UL, 0UL};
 static atomic_uint_fast64_t cnt64[NUM_CORES] = {0ULL, 0ULL};
+
+PICO_RUNTIME_INIT_FUNC_PER_CORE(m33_dwt_cyc_ena, "DWT_CYC");
 
 void m33_dwt_cyc_ena(void) {
   /*
